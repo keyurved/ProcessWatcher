@@ -1,0 +1,65 @@
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cause_card_view"
+    android:layout_width="370dp"
+    android:layout_height="100dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="10dp"
+    android:paddingHorizontal="5dp"
+    android:foregroundGravity="center"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="1.0"
+    card_view:cardCornerRadius="4dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/card_title_textView"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/card_message_textView"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_title_textView" />
+
+        <TextView
+            android:id="@+id/card_timestamp_textView"
+            android:layout_width="103dp"
+            android:layout_height="14dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/gray"
+            android:textSize="6sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+</android.support.v7.widget.CardView>

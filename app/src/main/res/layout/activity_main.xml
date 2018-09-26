@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.MainActivity">
+
+    <TextView
+        android:id="@+id/ip_textView"
+        android:layout_width="70dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="52dp"
+        android:text="@string/ip_address"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/port_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/port"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="@id/ip_textView"
+        app:layout_constraintTop_toBottomOf="@id/ip_textView" />
+
+    <EditText
+        android:id="@+id/ip_editText"
+        android:layout_width="117dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:digits="0123456789."
+        android:ems="10"
+        android:hint="@string/ip_hint"
+        android:inputType="number"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/ip_textView"
+        app:layout_constraintTop_toTopOf="@id/ip_textView" />
+
+    <EditText
+        android:id="@+id/port_editText"
+        android:layout_width="55dp"
+        android:layout_height="35dp"
+        android:ems="10"
+        android:hint="@string/port_hint"
+        android:inputType="number"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/ip_editText"
+        app:layout_constraintTop_toTopOf="@+id/port_textView" />
+
+    <Button
+        android:id="@+id/open_connection_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="204dp"
+        android:text="@string/open"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/connected_textView"
+        android:layout_width="169dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="36dp"
+        android:textColor="@color/red"
+        android:text="@string/inactive"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/open_connection_button" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/message_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:padding="15dp"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/open_connection_button" />
+
+</android.support.constraint.ConstraintLayout>

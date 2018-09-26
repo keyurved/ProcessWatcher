@@ -1,0 +1,81 @@
+package xyz.keyurved.processwatcher.activities
+
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.Bundle
+import android.support.v4.content.LocalBroadcastManager
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.*
+import xyz.keyurved.processwatcher.R
+import xyz.keyurved.processwatcher.adapters.MessageViewAdapter
+import xyz.keyurved.processwatcher.entities.Message
+import xyz.keyurved.processwatcher.entities.WebSocketMessageReceiver
+import xyz.keyurved.processwatcher.entities.WebSocketService
+
+
+class MainActivity : AppCompatActivity() {
+    private lateinit var messageRecyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+    private val messageDataset: ArrayList<Message> = ArrayList()
+    private var serviceStarted: Boolean = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        viewManager = LinearLayoutManager(this)
+        viewAdapter = MessageViewAdapter(messageDataset = messageDataset)
+
+        messageRecyclerView = findViewById<RecyclerView>(R.id.message_recyclerView).apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
+
+        val statusIntentFilter = IntentFilter(WebSocketService.BROADCAST_ACTION)
+        val webSocketMessageReceiver = WebSocketMessageReceiver(this)
+
+        LocalBroadcastManager.getInstance(this)
+                .registerReceiver(webSocketMessageReceiver, statusIntentFilter)
+
+        open_connection_button.setOnClickListener {
+            startWebSocketService()
+        }
+    }
+
+
+    private fun startWebSocketService() {
+        if (!serviceStarted) {
+            serviceStarted = true
+            var port: String? = null
+            if (port_editText.text.toString() != "") {
+                port = port_editText.text.toString()
+            }
+            val intentService = Intent(this, WebSocketService::class.java).apply {
+                putExtra(WebSocketService.HOSTNAME, ip_editText.text.toString())
+                putExtra(WebSocketService.PORT, port)
+            }
+            startService(intentService)
+        }
+    }
+
+    fun updateUI(status: String, message: Message?) {
+        if (status == WebSocketService.SOCKET_OPEN) {
+            connected_textView.text =  getString(R.string.active)
+            connected_textView.setTextColor(getColor(R.color.green))
+        } else if (status == WebSocketService.SOCKET_CLOSED) {
+            serviceStarted = false
+            connected_textView.text =  getString(R.string.inactive)
+            connected_textView.setTextColor(getColor(R.color.red))
+        } else if (status == WebSocketService.MESSAGE && message != null) {
+            messageDataset.add(0, message)
+            viewAdapter.notifyDataSetChanged()
+        }
+
+    }
+
+}

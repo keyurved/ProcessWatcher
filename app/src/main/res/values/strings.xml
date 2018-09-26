@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Process Watcher</string>
+    <string name="ip_address">IP Address</string>
+    <string name="port">Port</string>
+    <string name="port_hint">8000</string>
+    <string name="ip_hint">100.100.100.100</string>
+    <string name="open">Open Connection</string>
+    <string name="active">Connection Active</string>
+    <string name="inactive">Connection Inactive</string>
+</resources>
