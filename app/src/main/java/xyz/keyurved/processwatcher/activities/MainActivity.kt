@@ -109,6 +109,10 @@ class MainActivity : AppCompatActivity() {
             serviceStarted = false
             connected_textView.text =  getString(R.string.inactive)
             connected_textView.setTextColor(getColor(R.color.red))
+        } else if (status == WebSocketService.SOCKET_ERROR) {
+            serviceStarted = false
+            connected_textView.text =  getString(R.string.error)
+            connected_textView.setTextColor(getColor(R.color.red))
         } else if (status == WebSocketService.MESSAGE && message != null) {
             if (message.messageType == Message.MessageType.EXIT) {
                 showNotification(message.processName, message.message)

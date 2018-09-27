@@ -5,7 +5,6 @@ import android.content.Intent
 import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
 import android.widget.Toast
-import org.java_websocket.WebSocket
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import org.json.JSONObject
@@ -18,13 +17,13 @@ class WebSocketService: IntentService("WebSocketService") {
     private var mWebSocketClient: WebSocketClient? = null
 
     companion object {
-       const val JOB_ID = 1000
         const val BROADCAST_ACTION = "xyz.keyurved.processwatcher.BROADCAST"
         const val EXTENDED_DATA_STATUS = "xyz.keyurved.processwatcher.STATUS"
         const val HOSTNAME = "xyz.keyurved.processwatcher.HOSTNAME"
         const val PORT = "xyz.keyurved.processwatcher.PORT"
-        const val SOCKET_OPEN = "WEBSOCKETOPEN"
-        const val SOCKET_CLOSED  = "WEBSOCKETCLOSED"
+        const val SOCKET_OPEN = "socket_open"
+        const val SOCKET_CLOSED  = "socket_closed"
+        const val SOCKET_ERROR = "socket_error"
         const val MESSAGE = "MESSAGE"
 
     }
@@ -83,8 +82,9 @@ class WebSocketService: IntentService("WebSocketService") {
                 }
 
                 override fun onError(ex: Exception?) {
+                    Log.e("Error", ex?.message)
                     val localIntent = Intent(BROADCAST_ACTION).apply {
-                        putExtra(EXTENDED_DATA_STATUS, SOCKET_CLOSED)
+                        putExtra(EXTENDED_DATA_STATUS, SOCKET_ERROR)
                     }
                     LocalBroadcastManager.getInstance(context).sendBroadcast(localIntent)
                 }

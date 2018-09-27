@@ -13,6 +13,9 @@ class WebSocketMessageReceiver(private val activity: Activity): BroadcastReceive
 
         if (status == WebSocketService.MESSAGE) {
            message = intent.getParcelableExtra(WebSocketService.MESSAGE)
+        } else if (status == WebSocketService.SOCKET_CLOSED ||
+                status == WebSocketService.SOCKET_ERROR ) {
+          //  context.stopService(Intent(context, WebSocketService::class.java))
         }
 
         if (activity is MainActivity) {
